@@ -3,7 +3,7 @@
     <div class="card-info">
         <a href="{{ product.url }}">
             {{ product.title }}
-            <span>{{ product.price | money_without_trailing_zeros }}</span>
+            <span class="price">{{ product.price | money_without_trailing_zeros }}</span>
         </a>
 
         <p>{{ product.description | strip_html| split: '.' | first | append: '.' }}</p>
