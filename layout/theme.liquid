@@ -12,7 +12,7 @@
         {{ 'application.scss.css' | asset_url | stylesheet_tag }}
         {{ 'application.js' | asset_url | script_tag }}
     </head>
-    <body>
+    <body class="body-{{template}}">
 
         {% render 'header' %}
         <main role="main">
