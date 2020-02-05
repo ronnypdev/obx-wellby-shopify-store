@@ -30,9 +30,9 @@
 
 
     <label for="Quantity">quantity</label>
-    <input id="Quantity" min="1" name="quantity" type="number" value="1" {% if product.variants.size == 1 %} max={{ product.variants.first.inventory_quantity }} {% endif %}>
+    <input class="js-quantity-field" id="Quantity" min="1" name="quantity" type="number" value="1" {% if product.variants.size == 1 %} max={{ product.variants.first.inventory_quantity }} {% endif %}>
 
-    <button class="quantity-button minus" type="button">
+    <button class="quantity-button js-quantity-button minus" disabled type="button">
         &ndash;
     </button>
 
@@ -40,7 +40,7 @@
         1
     </span>
 
-    <button class="quantity-button plus" type="button">
+    <button class="quantity-button js-quantity-button plus" type="button">
         +
     </button>
 
