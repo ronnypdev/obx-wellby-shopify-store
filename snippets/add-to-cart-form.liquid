@@ -17,7 +17,7 @@
     </select> -->
     {% if product.variants.size > 1 %}
         {% for variant in product.variants %}
-            <input id="variant-{{ forloop.index }}" name="id" type="radio" value="{{ variant.id }}">
+            <input class="js-variant-radio" id="variant-{{ forloop.index }}" name="id" type="radio" value="{{ variant.id }}" data-inventory-quantity="{{ variant.inventory_quantity }}" {% unless variant.available %} disabled {% endunless %}>
             <label for="variant-{{ forloop.index }}">{{ variant.title }}</label>
         {% endfor %}
 
@@ -44,5 +44,5 @@
         +
     </button>
 
-    <button id="AddToCart" name="add" type="submit">Add to cart</button>
+    <button id="add-to-cart-button" name="add" type="submit" {% if product.variants.size > 1 %} disabled {%endif%}>Add to cart</button>
 </form
