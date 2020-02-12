@@ -1,1 +1,187 @@
-// put your styles here
+/**
+====================================
+    ==> Variables Partial <==
+====================================
+*/
+
+@font-face {
+  font-family: 'YoungSerif';
+  src: url('{{ "YoungSerif-Regular.eot" | asset_url }}'); /* IE9 Compat Modes */
+  src: url('{{ "YoungSerif-Regular.eot?#iefix" | asset_url }}')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('{{ "YoungSerif-Regular.woff2" | asset_url }}')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('{{ "YoungSerif-Regular.woff" | asset_url }}') format('woff'),
+    /* Pretty Modern Browsers */
+      url('{{ "YoungSerif-Regular.ttf" | asset_url }}') format('truetype'),
+    /* Safari, Android, iOS */
+      url('{{ "YoungSerif-Regular.svg#svgFontName" | asset_url }}')
+      format('svg'); /* Legacy iOS */
+}
+
+$headline-font: 'YoungSerif', 'Georgia', 'Times New Roman', Times, serif;
+$text-font: 'Karla', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+$black: #000000;
+$white: #ffffff;
+
+$light-black: #333333;
+
+$text-color: #555555;
+$text-color-white: #cccccc;
+$text-color-light: #707070;
+$text-color-light-white: #aaaaaa;
+
+$gold: #bea482;
+
+$background-color: #f7f2ea;
+$header-background-color: #eee6dd;
+$footer-background-color: #f4ede6;
+$border-color: rgba(0, 0, 0, 0.5);
+$border-color-white: rgba(255, 255, 255, 0.15);
+
+$standard-border: 1px solid $border-color;
+$standard-border-white: 1px solid $border-color-white;
+
+$line-global: 20px;
+$gutter-global: $line-global;
+$offset-global: $line-global * 2; // 40px
+
+$header-height: $line-global * 4; // 80px
+
+$type-headline-lg: 50px;
+$type-headline-med: 30px;
+$type-body-med: 15px;
+$type-body-sm: 13px;
+
+$type-bold: 700;
+$type-book: 400;
+
+/**
+====================================
+    ==> Mixins Partial <==
+====================================
+*/
+
+@mixin reset-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  text-align: left;
+}
+
+@mixin flex-space-between {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin spaced-cap {
+  font-size: $type-body-sm;
+  font-weight: $type-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+}
+/**
+====================================
+    ==> Base Partial <==
+====================================
+*/
+* {
+  font-family: $text-font;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: $black;
+  line-height: $line-global;
+}
+
+body {
+  font-size: $type-body-med;
+  background-color: $background-color;
+  background-image: url('{{ "background.jpg" | asset_url }}');
+  background-size: 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  padding-top: $header-height + $offset-global;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: $type-book;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+// Header
+.header-global {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: $header-height;
+  background-color: $header-background-color;
+  padding: $line-global $offset-global;
+  @include flex-space-between;
+
+  .shop-link {
+    order: -1;
+  }
+
+  .cart-close-text {
+    display: none;
+  }
+}
+
+/**
+====================================
+    ==> Footer Partial <==
+====================================
+*/
+
+.footer-global {
+  background-color: $footer-background-color;
+  margin-top: $offset-global;
+  border-top: $standard-border;
+}
+
+.footer-top,
+.footer-bottom {
+  padding: $offset-global;
+}
+
+.footer-bottom {
+  border-top: $standard-border;
+}
