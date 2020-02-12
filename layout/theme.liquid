@@ -10,6 +10,7 @@
         {{ content_for_header }}
         <!-- Header hook for plugins -->
         {{ 'application.scss.css' | asset_url | stylesheet_tag }}
+        <script crossorigin="anonymous" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" src="//code.jquery.com/jquery-3.4.1.min.js"></script>
         {{ 'application.js' | asset_url | script_tag }}
     </head>
     <body class="body-{{template}}">
