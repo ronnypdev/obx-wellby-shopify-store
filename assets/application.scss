@@ -144,6 +144,86 @@ ol {
   list-style-type: none;
 }
 
+/**
+====================================
+    ==> Style guide Partial <==
+====================================
+*/
+
+h1,
+.h1,
+h2,
+.h2 {
+  font-family: $headline-font;
+  font-weight: $type-bold;
+  color: $light-black;
+}
+
+h1,
+.h1 {
+  font-size: $type-headline-lg;
+  line-height: $line-global * 3;
+}
+
+h2,
+.h2 {
+  font-size: $type-headline-med;
+  line-height: $line-global * 2;
+}
+
+h4,
+.h4 {
+  @include spaced-cap;
+  color: $light-black;
+}
+
+a {
+  color: $text-color;
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+p {
+  color: $text-color;
+  a {
+    border-bottom: $standard-border;
+    &:hover {
+      border-bottom-color: $black;
+    }
+  }
+}
+
+.text-link {
+  @include spaced-cap;
+  color: $black;
+}
+
+/**
+====================================
+    ==> Utilities Partial <==
+====================================
+*/
+.grid {
+  display: grid;
+  grid-column-gap: $gutter-global;
+  grid-row-gap: $gutter-global;
+
+  > * {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  &.collapse {
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+  }
+}
+
+.two-columns {
+  grid-template-columns: 1fr 1fr;
+}
+
 // Header
 .header-global {
   position: fixed;
@@ -164,7 +244,6 @@ ol {
     display: none;
   }
 }
-
 /**
 ====================================
     ==> Footer Partial <==
@@ -175,6 +254,10 @@ ol {
   background-color: $footer-background-color;
   margin-top: $offset-global;
   border-top: $standard-border;
+
+  h4 {
+    margin-bottom: $line-global;
+  }
 }
 
 .footer-top,
@@ -182,6 +265,20 @@ ol {
   padding: $offset-global;
 }
 
+.footer-top {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
 .footer-bottom {
   border-top: $standard-border;
+  @include flex-space-between;
+}
+
+.social-links {
+  a {
+    display: inline-block;
+    &:not(:last-child) {
+      margin-right: $line-global / 2;
+    }
+  }
 }
