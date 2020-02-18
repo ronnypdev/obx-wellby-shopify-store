@@ -204,6 +204,11 @@ p {
     ==> Utilities Partial <==
 ====================================
 */
+.wrapper {
+  padding-left: $offset-global;
+  padding-right: $offset-global;
+}
+
 .grid {
   display: grid;
   grid-column-gap: $gutter-global;
@@ -222,6 +227,39 @@ p {
 
 .two-columns {
   grid-template-columns: 1fr 1fr;
+}
+
+.valign-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ta-center {
+  text-align: center;
+}
+
+.text-white {
+  color: $white;
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4 {
+    color: $white;
+  }
+
+  p,
+  .accent-color {
+    color: $text-color-white;
+  }
+
+  a {
+    color: white;
+  }
 }
 
 // Header
@@ -279,6 +317,73 @@ p {
     display: inline-block;
     &:not(:last-child) {
       margin-right: $line-global / 2;
+    }
+  }
+}
+
+/**
+====================================
+    ==> Index Page Partial <==
+====================================
+*/
+.index-top {
+  height: 50vh;
+  min-height: 400px;
+  padding-bottom: $offset-global;
+}
+
+.product-info-section {
+  @extend .text-white;
+  background: $light-black;
+  padding: $offset-global;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  .product-title {
+    padding: $line-global 0;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .price {
+    display: inline-block;
+    font-size: $line-global;
+    color: $text-color-white;
+    font-weight: $type-book;
+    vertical-align: super;
+  }
+
+  .below-title {
+    max-width: 396px;
+    margin: 0 auto;
+  }
+
+  p {
+    margin-bottom: $line-global;
+  }
+}
+
+// Product Card
+.product-card {
+  .card-image {
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &:nth-child(odd) {
+    .card-image {
+      grid-column: 0;
+      grid-row: 1;
     }
   }
 }
