@@ -153,7 +153,9 @@ ol {
 h1,
 .h1,
 h2,
-.h2 {
+.h2,
+h3,
+.h3 {
   font-family: $headline-font;
   font-weight: $type-bold;
   color: $light-black;
@@ -169,6 +171,12 @@ h2,
 .h2 {
   font-size: $type-headline-med;
   line-height: $line-global * 2;
+}
+
+h3,
+.h3 {
+  font-size: $type-body-med;
+  line-height: $line-global;
 }
 
 h4,
@@ -504,4 +512,66 @@ button[type='submit'],
 
 #add-to-cart-button {
   margin-top: $line-global;
+}
+/**
+====================================
+    ==> Cart Page Partial <==
+====================================
+*/
+.cart-page-contents {
+  background: $light-black;
+  padding: $offset-global;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.cart-lines {
+  margin-top: $line-global;
+  border-top: $standard-border-white;
+  border-bottom: $standard-border-white;
+  padding: $line-global 0;
+}
+
+.cart-empty-text {
+  margin: ($line-global * 4) 0;
+}
+
+.line-item {
+  @extend .text-white;
+  @include flex-space-between;
+
+  .line-image {
+    width: 80px;
+    position: relative;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .remove-line {
+    position: absolute;
+    width: $line-global;
+    height: $line-global;
+    top: -($line-global/2);
+    right: -($line-global/2);
+    display: none;
+  }
+
+  &:hover {
+    .remove-line {
+      display: block;
+    }
+  }
+
+  &:not(:first-child) {
+    margin-top: $line-global;
+  }
+}
+
+.subtotal-lines {
+  @include flex-space-between;
+  padding: $line-global 0;
 }
