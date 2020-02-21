@@ -1,6 +1,6 @@
 // Put your applicaiton javascript here
-$(document).ready(function () {
-  let onQuantityButtonClick = function (event) {
+$(document).ready(function() {
+  let onQuantityButtonClick = function(event) {
     // Targeting elements
     let $button = $(this);
     let $form = $button.closest('form');
@@ -20,7 +20,7 @@ $(document).ready(function () {
     }
   };
 
-  let onQuantityFieldChange = function (event) {
+  let onQuantityFieldChange = function(event) {
     let $field = $(this);
     let $form = $field.closest('form');
     let $quantityText = $form.find('.js-quantity-text');
@@ -45,7 +45,7 @@ $(document).ready(function () {
     }
   };
 
-  let onVariantRadioChange = function (event) {
+  let onVariantRadioChange = function(event) {
     let $ratio = $(this);
     let $form = $ratio.closest('form');
     let max = $ratio.attr('data-inventory-quantity');
@@ -63,9 +63,32 @@ $(document).ready(function () {
     }
   };
 
+  let onAddtoCart = function(event) {
+    event.preventDefault();
+
+    $.ajax({
+      type: 'POST',
+      url: '/cart/add.js',
+      data: $(this).serialize(),
+      success: onCartUpdated,
+      error: onError
+    });
+  };
+
+  let onCartUpdated = function() {
+    alert('cart is updated');
+  };
+
+  let onError = function(XMLHttpRequest, textStatus) {
+    let data = XMLHttpRequest.responseJSON;
+    alert(data.status + ' - ' + data.message + ': ' + data.description);
+  };
+
   $(document).on('click', '.js-quantity-button', onQuantityButtonClick);
 
   $(document).on('change', '.js-quantity-field', onQuantityFieldChange);
 
   $(document).on('change', '.js-variant-radio', onVariantRadioChange);
+
+  $(document).on('submit', '#add-to-cart-form', onAddtoCart);
 });
