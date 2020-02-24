@@ -96,6 +96,12 @@ $(document).ready(function () {
 
         $cartItemCount.text(dataCartItemCount);
         $miniCartContents.html(dataCartHtml);
+
+        if (parseInt(dataCartItemCount) > 0) {
+          openCart();
+        } else {
+          closeCart();
+        }
       }
     });
   };
@@ -103,6 +109,26 @@ $(document).ready(function () {
   let onError = function (XMLHttpRequest, textStatus) {
     let data = XMLHttpRequest.responseJSON;
     alert(data.status + ' - ' + data.message + ': ' + data.description);
+  };
+
+  let openCart = function () {
+    $('html').addClass('mini-cart-open');
+  };
+
+  let closeCart = function () {
+    $('html').removeClass('mini-cart-open');
+  };
+
+  let onCartButtonClick = function (event) {
+    event.preventDefault();
+
+    let isCartOpen = $('html').hasClass('mini-cart-open');
+
+    if (!isCartOpen) {
+      openCart();
+    } else {
+      closeCart();
+    }
   };
 
   $(document).on('click', '.js-quantity-button', onQuantityButtonClick);
@@ -114,4 +140,10 @@ $(document).ready(function () {
   $(document).on('submit', '#add-to-cart-form', onAddtoCart);
 
   $(document).on('click', '#mini-cart .js-remove-line', onLineRemoved);
+
+  $(document).on(
+    'click',
+    '.js-cart-link, #mini-cart .js-keep-shopping',
+    onCartButtonClick
+  );
 });
