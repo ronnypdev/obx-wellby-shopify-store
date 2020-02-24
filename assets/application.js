@@ -63,9 +63,87 @@ $(document).ready(function () {
     }
   };
 
+  let onAddtoCart = function (event) {
+    event.preventDefault();
+
+    $.ajax({
+      type: 'POST',
+      url: '/cart/add.js',
+      data: $(this).serialize(),
+      success: onCartUpdated,
+      error: onError
+    });
+  };
+
+  let onLineRemoved = function (event) {
+    event.preventDefault();
+    let $removeLink = $(this);
+    let $removeQuery = $removeLink.attr('href').split('change?')[1];
+    $.post('/cart/change.js', $removeQuery, onCartUpdated, 'json');
+  };
+
+  let onCartUpdated = function () {
+    $.ajax({
+      type: 'GET',
+      url: '/cart',
+      context: document.body,
+      success: function (context) {
+        let $dataCartContents = $(context).find('.js-cart-page-contents');
+        let dataCartHtml = $dataCartContents.html();
+        let dataCartItemCount = $dataCartContents.attr('data-cart-item-count');
+        let $miniCartContents = $('.js-mini-cart-contents');
+        let $cartItemCount = $('.js-cart-item-count');
+
+        $cartItemCount.text(dataCartItemCount);
+        $miniCartContents.html(dataCartHtml);
+
+        if (parseInt(dataCartItemCount) > 0) {
+          openCart();
+        } else {
+          closeCart();
+        }
+      }
+    });
+  };
+
+  let onError = function (XMLHttpRequest, textStatus) {
+    let data = XMLHttpRequest.responseJSON;
+    alert(data.status + ' - ' + data.message + ': ' + data.description);
+  };
+
+  let openCart = function () {
+    $('html').addClass('mini-cart-open');
+  };
+
+  let closeCart = function () {
+    $('html').removeClass('mini-cart-open');
+  };
+
+  let onCartButtonClick = function (event) {
+    event.preventDefault();
+
+    let isCartOpen = $('html').hasClass('mini-cart-open');
+
+    if (!isCartOpen) {
+      openCart();
+    } else {
+      closeCart();
+    }
+  };
+
   $(document).on('click', '.js-quantity-button', onQuantityButtonClick);
 
   $(document).on('change', '.js-quantity-field', onQuantityFieldChange);
 
   $(document).on('change', '.js-variant-radio', onVariantRadioChange);
+
+  $(document).on('submit', '#add-to-cart-form', onAddtoCart);
+
+  $(document).on('click', '#mini-cart .js-remove-line', onLineRemoved);
+
+  $(document).on(
+    'click',
+    '.js-cart-link, #mini-cart .js-keep-shopping',
+    onCartButtonClick
+  );
 });
