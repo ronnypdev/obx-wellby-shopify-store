@@ -77,10 +77,9 @@ $(document).ready(function () {
 
   let onLineRemoved = function (event) {
     event.preventDefault();
-
     let $removeLink = $(this);
-    let removeQuery = $removeLink.attr('href').split('change?')[1];
-    $.post('/cart/change.js', removeQuery, onCartUpdated, 'json');
+    let $removeQuery = $removeLink.attr('href').split('change?')[1];
+    $.post('/cart/change.js', $removeQuery, onCartUpdated, 'json');
   };
 
   let onCartUpdated = function () {
@@ -114,5 +113,5 @@ $(document).ready(function () {
 
   $(document).on('submit', '#add-to-cart-form', onAddtoCart);
 
-  $(document).on('submit', '#mini-cart .js-remove-line', onLineRemoved);
+  $(document).on('click', '#mini-cart .js-remove-line', onLineRemoved);
 });
