@@ -1,6 +1,6 @@
 // Put your applicaiton javascript here
-$(document).ready(function() {
-  let onQuantityButtonClick = function(event) {
+$(document).ready(function () {
+  let onQuantityButtonClick = function (event) {
     // Targeting elements
     let $button = $(this);
     let $form = $button.closest('form');
@@ -20,7 +20,7 @@ $(document).ready(function() {
     }
   };
 
-  let onQuantityFieldChange = function(event) {
+  let onQuantityFieldChange = function (event) {
     let $field = $(this);
     let $form = $field.closest('form');
     let $quantityText = $form.find('.js-quantity-text');
@@ -45,7 +45,7 @@ $(document).ready(function() {
     }
   };
 
-  let onVariantRadioChange = function(event) {
+  let onVariantRadioChange = function (event) {
     let $ratio = $(this);
     let $form = $ratio.closest('form');
     let max = $ratio.attr('data-inventory-quantity');
@@ -63,7 +63,7 @@ $(document).ready(function() {
     }
   };
 
-  let onAddtoCart = function(event) {
+  let onAddtoCart = function (event) {
     event.preventDefault();
 
     $.ajax({
@@ -75,11 +75,33 @@ $(document).ready(function() {
     });
   };
 
-  let onCartUpdated = function() {
-    alert('cart is updated');
+  let onLineRemoved = function (event) {
+    event.preventDefault();
+
+    let $removeLink = $(this);
+    let removeQuery = $removeLink.attr('href').split('change?')[1];
+    $.post('/cart/change.js', removeQuery, onCartUpdated, 'json');
   };
 
-  let onError = function(XMLHttpRequest, textStatus) {
+  let onCartUpdated = function () {
+    $.ajax({
+      type: 'GET',
+      url: '/cart',
+      context: document.body,
+      success: function (context) {
+        let $dataCartContents = $(context).find('.js-cart-page-contents');
+        let dataCartHtml = $dataCartContents.html();
+        let dataCartItemCount = $dataCartContents.attr('data-cart-item-count');
+        let $miniCartContents = $('.js-mini-cart-contents');
+        let $cartItemCount = $('.js-cart-item-count');
+
+        $cartItemCount.text(dataCartItemCount);
+        $miniCartContents.html(dataCartHtml);
+      }
+    });
+  };
+
+  let onError = function (XMLHttpRequest, textStatus) {
     let data = XMLHttpRequest.responseJSON;
     alert(data.status + ' - ' + data.message + ': ' + data.description);
   };
@@ -91,4 +113,6 @@ $(document).ready(function() {
   $(document).on('change', '.js-variant-radio', onVariantRadioChange);
 
   $(document).on('submit', '#add-to-cart-form', onAddtoCart);
+
+  $(document).on('submit', '#mini-cart .js-remove-line', onLineRemoved);
 });
